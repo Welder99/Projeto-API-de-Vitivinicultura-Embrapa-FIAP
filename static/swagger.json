@@ -1,0 +1,191 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API de Vitivinicultura",
+    "description": "Documentação da API para scraping de dados do site da Embrapa",
+    "version": "1.0.0"
+  },
+  "host": "localhost:5000",
+  "basePath": "/api",
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\""
+    }
+  },
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Autenticação",
+        "description": "Gera um token JWT para acesso aos endpoints protegidos",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "credentials",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token gerado com sucesso",
+            "schema": {
+              "$ref": "#/definitions/TokenResponse"
+            }
+          },
+          "401": {
+            "description": "Credenciais inválidas"
+          }
+        }
+      }
+    },
+    "/producao": {
+      "get": {
+        "tags": ["Dados"],
+        "summary": "Obter dados de Produção",
+        "description": "Retorna dados de Produção extraídos do site da Embrapa",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dados de Produção retornados com sucesso",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Não autorizado"
+          }
+        }
+      }
+    },
+    "/processamento": {
+      "get": {
+        "tags": ["Dados"],
+        "summary": "Obter dados de Processamento",
+        "description": "Retorna dados de Processamento extraídos do site da Embrapa",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dados de Processamento retornados com sucesso",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Não autorizado"
+          }
+        }
+      }
+    },
+    "/comercializacao": {
+      "get": {
+        "tags": ["Dados"],
+        "summary": "Obter dados de Comercialização",
+        "description": "Retorna dados de Comercialização extraídos do site da Embrapa",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dados de Comercialização retornados com sucesso",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Não autorizado"
+          }
+        }
+      }
+    },
+    "/exportacao": {
+      "get": {
+        "tags": ["Dados"],
+        "summary": "Obter dados de Exportação",
+        "description": "Retorna dados de Exportação extraídos do site da Embrapa",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dados de Exportação retornados com sucesso",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Não autorizado"
+          }
+        }
+      }
+    },
+    "/importacao": {
+      "get": {
+        "tags": ["Dados"],
+        "summary": "Obter dados de Importação",
+        "description": "Retorna dados de Importação extraídos do site da Embrapa",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dados de Importação retornados com sucesso",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Não autorizado"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "LoginRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "admin"
+        },
+        "password": {
+          "type": "string",
+          "example": "senha123"
+        }
+      },
+      "required": ["username", "password"]
+    },
+    "TokenResponse": {
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
