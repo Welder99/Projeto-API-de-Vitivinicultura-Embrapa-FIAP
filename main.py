@@ -1,5 +1,5 @@
 import os
-from flask import Flask, redirect  # importe redirect
+from flask import Flask, redirect
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from dotenv import load_dotenv
@@ -8,8 +8,9 @@ from flask_swagger_ui import get_swaggerui_blueprint
 
 def create_app():
     load_dotenv()
-    swagger_url  = os.getenv('SWAGGER_URL', '/swagger/')
-    api_docs     = os.getenv('SWAGGER_JSON_PATH', '/static/swagger.json')
+    # agora com barra no fim
+    swagger_url = os.getenv('SWAGGER_URL', '/swagger/')
+    api_docs    = os.getenv('SWAGGER_JSON_PATH', '/static/swagger.json')
 
     app = Flask(
         __name__,
@@ -33,7 +34,7 @@ def create_app():
     )
     app.register_blueprint(swagger_bp, url_prefix=swagger_url)
 
-    # **Rota raiz redirecionando para o Swagger UI**
+    # Rota raiz redirecionando para /swagger/
     @app.route('/')
     def index():
         return redirect(swagger_url)
