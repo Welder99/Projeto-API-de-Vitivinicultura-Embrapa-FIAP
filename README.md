@@ -75,7 +75,7 @@ Docker (opcional)
 Instalação e Configuração
 
 # Clone o repositório
-git clone https://github.com/seu-usuario/vitivinicultura-api.git
+git clone https://github.com/Welder99/Projeto-API-de-Vitivinicultura-Embrapa-FIAP
 cd vitivinicultura-api
 
 # Crie e ative um ambiente virtual
