@@ -38,6 +38,10 @@ def create_app():
     @app.route('/')
     def index():
         return redirect(swagger_url)
+    
+    @app.route('/healthz')
+    def healthz():
+        return {'status': 'ok'}, 200
 
     return app
 
