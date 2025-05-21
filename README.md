@@ -114,7 +114,7 @@ Sem Docker
 # Certifique-se de que o venv está ativo
 python main.py
 
-API disponível em http://localhost:5000/api e Swagger UI em http://localhost:5000/swagger.
+API disponível em http://localhost:5000/api e Swagger UI em http://localhost:5000/swagger/.
 
 Com Docker
 
@@ -162,20 +162,27 @@ Teste todos os endpoints pela UI
 Estrutura do Projeto
 
 vitivinicultura-api/
-├── app/
-│   ├── __init__.py
+├── app/  
 │   ├── routes.py
 │   └── scraping.py
-├── data/               # JSONs de fallback (gitignored)
-│   └── producao.json
+├── data/               
+│   └── comercializacao.json
+|   └── exportacao.json
+|   └── importacao.json
+|   └── processamento.json
+|   └── producao.json
 ├── static/
 │   └── swagger.json
 ├── .dockerignore
+|   .env
 ├── Dockerfile
 ├── main.py
 ├── requirements.txt
 ├── README.md
-└── .env.example
+
+
+Fluxograma
+![alt text](Fluxograma.svg)
 
 Contribuição
 
