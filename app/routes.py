@@ -30,12 +30,6 @@ def login():
 
 
 def trata_scraping(fn):
-    """
-    Decorator que:
-      - Se a função retornar (dict, status), devolve esse status.
-      - Se retornar dict com chave 'error', devolve HTTP 500.
-      - Caso contrário, retorna dict com HTTP 200.
-    """
     @functools.wraps(fn)
     def wrapper(*args, **kwargs):
         result = fn(*args, **kwargs)

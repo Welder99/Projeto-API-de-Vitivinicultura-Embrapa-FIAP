@@ -8,7 +8,6 @@ from flask_swagger_ui import get_swaggerui_blueprint
 
 def create_app():
     load_dotenv()
-    # agora com barra no fim
     swagger_url = os.getenv('SWAGGER_URL', '/swagger/')
     api_docs    = os.getenv('SWAGGER_JSON_PATH', '/static/swagger.json')
 

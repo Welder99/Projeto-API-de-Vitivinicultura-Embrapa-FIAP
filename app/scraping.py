@@ -39,7 +39,7 @@ def _obter(chave: str):
       - Salva em data/{chave}.json,
       - Retorna {"dados": [...]}
 
-    Se falhar o request, tenta ler data/{chave}.json.
+    Se falhar qualquer erro, tenta ler data/{chave}.json.
     Se não existir, retorna erro.
     """
     url = URLS.get(chave)
@@ -49,8 +49,7 @@ def _obter(chave: str):
         soup = BeautifulSoup(resp.content, "html.parser")
 
         resultado = []
-        tabelas = soup.find_all("table")
-        for tbl in tabelas:
+        for tbl in soup.find_all("table"):
             headers = [th.get_text(strip=True) for th in tbl.find_all("th")]
             rows = []
             for tr in tbl.find_all("tr"):
@@ -67,8 +66,8 @@ def _obter(chave: str):
 
         return {"dados": resultado}
 
-    except requests.RequestException as e:
-        # tentamos o fallback local
+    except Exception as e:
+        # tenta o fallback local em qualquer erro
         fallback_path = os.path.join(DATA_DIR, f"{chave}.json")
         if os.path.exists(fallback_path):
             with open(fallback_path, "r", encoding="utf-8") as f:

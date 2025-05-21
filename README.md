@@ -1,30 +1,32 @@
 Projeto API de Vitivinicultura Embrapa
 
-Índice
+1. Índice
 
-Sobre o Projeto
+2. Sobre o Projeto
 
-Funcionalidades
+3. Funcionalidades
 
-Tecnologias Utilizadas
+4. Tecnologias Utilizadas
 
-Requisitos
+5. Requisitos
 
-Instalação e Configuração
+6. Instalação e Configuração
 
-Variáveis de Ambiente
+7. Variáveis de Ambiente
 
-Como Executar
+8. Como Executar
 
-Sem Docker
+9. Sem Docker
 
-Com Docker
+10. Com Docker
 
-Autenticação JWT
+11. Autenticação JWT
 
-Documentação com Swagger
+12. Documentação com Swagger
 
 Estrutura do Projeto
+
+Testes
 
 Contribuição
 
@@ -75,7 +77,7 @@ Docker (opcional)
 Instalação e Configuração
 
 # Clone o repositório
-git clone https://github.com/Welder99/Projeto-API-de-Vitivinicultura-Embrapa-FIAP
+git clone https://github.com/Welder99/Projeto-API-de-Vitivinicultura-Embrapa-FIAP.git
 cd vitivinicultura-api
 
 # Crie e ative um ambiente virtual
@@ -100,12 +102,12 @@ API_USER=admin
 API_PASSWORD=senha123
 
 # Configurações do Flask
-env FLASK_DEBUG=true
+FLASK_DEBUG=true
 PORT=5000
 
 # Swagger UI
-SWAGGER_URL=/swagger
-SWAGGER_JSON_PATH=/static/swagger.json
+env SWAGGER_URL=/swagger/
+env SWAGGER_JSON_PATH=/static/swagger.json
 
 Como Executar
 
@@ -114,7 +116,7 @@ Sem Docker
 # Certifique-se de que o venv está ativo
 python main.py
 
-API disponível em http://localhost:5000/api e Swagger UI em http://localhost:5000/swagger/.
+A API ficará disponível em http://localhost:5000/api e o Swagger em http://localhost:5000/swagger/.
 
 Com Docker
 
@@ -124,13 +126,13 @@ docker build -t vitivinicultura-api .
 # Remova container antigo (se existir)
 docker rm -f vitivinicultura-api
 
-# Run em modo detached
+# Execute o container
 docker run -d --name vitivinicultura-api \
   --env-file .env \
   -p 5000:5000 \
   vitivinicultura-api
 
-API e Swagger UI nos mesmos URLs acima.
+A API e o Swagger estarão nos mesmos URLs acima.
 
 Autenticação JWT
 
@@ -144,45 +146,60 @@ Resposta:
 
 { "access_token": "<token>" }
 
-Chamar endpoints protegidos:
-Adicione no header:
+Usar o token:
+Adicione no header de chamadas protegidas:
 
 Authorization: Bearer <access_token>
 
 Documentação com Swagger
 
-Acesse http://localhost:5000/swagger
+Acesse: http://localhost:5000/swagger/
 
-Clique em Authorize
+Clique em Authorize e cole Bearer <access_token>
 
-Cole Bearer <access_token> e confirme
-
-Teste todos os endpoints pela UI
+Teste todos os endpoints diretamente na UI
 
 Estrutura do Projeto
 
 vitivinicultura-api/
-├── app/  
+├── app/
 │   ├── routes.py
 │   └── scraping.py
-├── data/               
-│   └── comercializacao.json
-|   └── exportacao.json
-|   └── importacao.json
-|   └── processamento.json
-|   └── producao.json
+├── data/               # JSONs de fallback
+│   ├── producao.json
+│   ├── processamento.json
+│   ├── comercializacao.json
+│   ├── importacao.json
+│   └── exportacao.json
 ├── static/
 │   └── swagger.json
 ├── .dockerignore
-|   .env
+├── .env.example
 ├── Dockerfile
 ├── main.py
 ├── requirements.txt
-├── README.md
+├── tests/              # Suíte de testes pytest
+│   ├── conftest.py
+│   ├── test_main.py
+│   ├── test_routes.py
+│   └── test_scraping.py
+└── README.md
+
+Testes
+
+A suíte de testes usa pytest e cobre:
+
+Health-check e redirecionamento (main.py)
+
+Login e autorização de rotas (routes.py)
+
+Lógica de scraping ao vivo e fallback (scraping.py)
+
+Executar os testes
+
+pytest --cov=app tests/
 
 
-Fluxograma
-![alt text](Fluxograma.svg)
 
 Contribuição
 
@@ -190,6 +207,6 @@ Contribuições são bem-vindas!
 
 Abra uma issue para discutir bugs ou melhorias.
 
-Faça um fork, implemente a alteração e envie um pull request.
+Faça um fork, implemente as alterações e envie um pull request.
 
-Nota: o site da Embrapa pode apresentar instabilidades. A API grava automáticos arquivos de fallback em data/ para manter os dados disponíveis mesmo quando scraping falhar.
+Nota: o site da Embrapa pode apresentar instabilidades; a API grava automaticamente arquivos de fallback em data/ para manter os dados disponíveis mesmo quando o scraping falhar.
